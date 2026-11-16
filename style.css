@@ -1,3 +1,13 @@
+/* —— L'Oréal brand colors: black, white and a vibrant red —— */
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --red: #e4002b; /* accent red (pick your exact brand red if you have one) */
+  --red-dark: #b30022;
+  --gray: #5f5f5f;
+  --gray-light: #f4f4f4;
+}
+
 /* —— basic reset —— */
 * {
   box-sizing: border-box;
@@ -7,8 +17,9 @@
 
 /* —— body + fonts —— */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--black);
+  background: var(--white);
   display: flex;
   justify-content: center;
 }
@@ -18,46 +29,99 @@ body {
   max-width: 900px;
 }
 
-/* header */
+/* header (white background keeps the logo clear) */
 .site-header {
   text-align: center;
-  padding-top: 50px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--red);
 }
 
+.site-logo {
+  width: 180px;
+  max-width: 60%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+/* serif headline, in the spirit of L'Oréal's Bodoni-style headers */
 .site-title {
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.site-subtitle {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--gray);
 }
 
 /* chat window */
 .chatbox {
-  margin: 40px 0;
+  margin: 30px 0;
 }
 
 .chat-window {
-  height: 360px;
-  border: 1px solid #000;
+  height: 400px;
+  border: 1px solid var(--black);
   padding: 20px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5;
   overflow-y: auto;
-  background: #fafafa;
-  white-space: pre-line;
+  background: var(--gray-light);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* messages */
 .msg {
-  margin-bottom: 14px;
-  line-height: 1.5;
+  max-width: 80%;
+  padding: 12px 16px;
+  white-space: pre-wrap; /* keeps line breaks from the AI's reply */
+  overflow-wrap: anywhere;
 }
 
+/* the user's messages: black bubble on the right */
 .msg.user {
-  color: #000;
+  align-self: flex-end;
+  background: var(--black);
+  color: var(--white);
 }
 
+/* the assistant's messages: white bubble with a red edge on the left */
 .msg.ai {
-  color: #666666;
+  align-self: flex-start;
+  background: var(--white);
+  color: var(--black);
+  border-left: 4px solid var(--red);
+}
+
+/* latest question, shown just above the chat conversation */
+.latest-question {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 15px;
+  border-left: 4px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  overflow-wrap: anywhere;
+}
+
+.latest-question span {
+  font-weight: 700;
+  color: var(--red-dark);
+}
+
+/* "Thinking…" message while we wait for the reply */
+.msg.thinking {
+  color: var(--gray);
+  font-style: italic;
 }
 
 /* input row */
@@ -70,19 +134,19 @@ body {
 .chat-form input {
   flex: 1;
   padding: 12px;
-  border: 1px solid #ccc;
-  font-size: 18px;
+  border: 1px solid var(--black);
+  font-family: inherit;
+  font-size: 16px;
 }
 
 .chat-form input:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--red);
   outline-offset: 2px;
 }
 
 .chat-form button {
-  font-size: 18px;
-  background: #000;
-  color: #fff;
+  background: var(--black);
+  color: var(--white);
   border: none;
   padding: 12px;
   width: 48px;
@@ -99,12 +163,17 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: var(--red);
 }
 
-.chat-form button:focus {
-  outline: 2px solid #000;
+.chat-form button:focus-visible {
+  outline: 2px solid var(--red);
   outline-offset: 2px;
+}
+
+.chat-form button:disabled {
+  background: var(--gray);
+  cursor: not-allowed;
 }
 
 /* visually hidden */
@@ -122,10 +191,11 @@ body {
 
 /* footer */
 .site-footer {
-  margin: 60px 0 40px;
+  margin: 50px 0 40px;
   text-align: center;
-  font-size: 14px;
-  color: #666;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 13px;
+  color: var(--gray);
 }
 
 .site-footer nav {
@@ -134,10 +204,21 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--black);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: var(--red-dark);
+  text-decoration: underline;
+}
+
+/* small screens */
+@media (max-width: 500px) {
+  .site-title {
+    font-size: 26px;
+  }
+  .msg {
+    max-width: 92%;
+  }
 }
